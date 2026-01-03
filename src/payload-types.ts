@@ -209,7 +209,6 @@ export interface Page {
 export interface Tenant {
   id: number;
   name: string;
-  slug: string;
   domain: string;
   updatedAt: string;
   createdAt: string;
@@ -1251,7 +1250,6 @@ export interface CommentsSelect<T extends boolean = true> {
  */
 export interface TenantsSelect<T extends boolean = true> {
   name?: T;
-  slug?: T;
   domain?: T;
   updatedAt?: T;
   createdAt?: T;
