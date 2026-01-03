@@ -171,7 +171,7 @@ export function serializeLexical({ nodes }: Props): JSX.Element {
               } else {
                 return (
                   <li key={index} value={node?.value}>
-                    {serializedChildren}
+                    {serializedChildren} 
                   </li>
                 )
               }
