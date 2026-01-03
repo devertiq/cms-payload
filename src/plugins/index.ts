@@ -11,8 +11,9 @@ import { FixedToolbarFeature, HeadingFeature, lexicalEditor } from '@payloadcms/
 import { searchFields } from '@/search/fieldOverrides'
 import { beforeSyncWithSearch } from '@/search/beforeSync'
 
-import { Page, Post } from '@/payload-types'
+import { Page, Post, Config } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
+import { multiTenantPlugin } from '@payloadcms/plugin-multi-tenant'
 
 const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
   return doc?.title ? `${doc.title} | Payload Website Template` : 'Payload Website Template'
@@ -90,4 +91,9 @@ export const plugins: Plugin[] = [
     },
   }),
   payloadCloudPlugin(),
+  multiTenantPlugin<Config>({
+    collections: {
+      pages: {},
+    },
+  }),
 ]
