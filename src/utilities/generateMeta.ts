@@ -11,19 +11,14 @@ export const generateMeta = async (args: {
   const { doc } = args || {}
 
   const ogImage =
-    typeof doc?.meta?.image === 'object' &&
-    doc.meta.image !== null &&
-    'url' in doc.meta.image &&
     `${getServerSideURL()}`
 
-  const title = doc?.meta?.title
-    ? doc?.meta?.title + ' | Payload Website Template'
-    : 'Payload Website Template'
+  const title = ' Payload Website Template';
 
   return {
-    description: doc?.meta?.description,
+    description: '',
     openGraph: mergeOpenGraph({
-      description: doc?.meta?.description || '',
+      description:  '',
       images: ogImage
         ? [
             {

@@ -113,7 +113,7 @@ export const seed = async ({
     const demoAuthor = await payload.create({
       collection: 'users',
       data: {
-        name: 'Demo Author',
+        username: 'Demo Author',
         email: 'demo-author@payloadcms.com',
         password: 'password'
       }

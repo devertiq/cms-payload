@@ -1,6 +1,7 @@
 import type { Access } from 'payload'
 
 import { isSuperAdmin } from '../../../access/isSuperAdmin'
+import { Tenant } from 'node_modules/@payloadcms/plugin-multi-tenant/dist/types'
 
 export const filterByTenantRead: Access = (args) => {
   // Allow public tenants to be read by anyone
@@ -30,7 +31,7 @@ export const canMutateTenant: Access = ({ req }) => {
         req.user?.tenants
           ?.map(({ roles, tenant }) =>
             roles?.includes('tenant-admin')
-              ? tenant && (typeof tenant === 'string' ? tenant : tenant.id)
+              ? tenant && (typeof tenant === 'string' ? tenant : (tenant as Tenant).id)
               : null,
           )
           .filter(Boolean) || [],

@@ -17,13 +17,13 @@ import {
   IS_UNDERLINE,
 } from './nodeFormat'
 import type {
-  CallToActionBlock as CTABlockProps,
+  // CallToActionBlock as CTABlockProps,
   MediaBlock as MediaBlockProps,
 } from '@/payload-types'
 
 export type NodeTypes =
   | DefaultNodeTypes
-  | SerializedBlockNode<CTABlockProps | MediaBlockProps | BannerBlockProps | CodeBlockProps>
+  | SerializedBlockNode<  MediaBlockProps | BannerBlockProps | CodeBlockProps>
 
 type Props = {
   nodes: NodeTypes[]
@@ -104,8 +104,8 @@ export function serializeLexical({ nodes }: Props): JSX.Element {
           }
 
           switch (blockType) {
-            case 'cta':
-              return <CallToActionBlock key={index} {...block} />
+            // case 'cta':
+            //   return <CallToActionBlock key={index} {...block} />
             case 'mediaBlock':
               return (
                 <MediaBlock
