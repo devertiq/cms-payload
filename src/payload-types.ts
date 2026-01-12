@@ -180,6 +180,7 @@ export interface Tenant {
  */
 export interface Post {
   id: number;
+  tenant?: (number | null) | Tenant;
   title: string;
   content: {
     root: {
@@ -751,6 +752,7 @@ export interface PagesSelect<T extends boolean = true> {
  * via the `definition` "posts_select".
  */
 export interface PostsSelect<T extends boolean = true> {
+  tenant?: T;
   title?: T;
   content?: T;
   relatedPosts?: T;

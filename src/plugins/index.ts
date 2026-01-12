@@ -96,6 +96,7 @@ export const plugins: Plugin[] = [
   multiTenantPlugin<Config>({
     collections: {
       pages: {},
+      posts: {}
     },
     tenantField: {
       access: {

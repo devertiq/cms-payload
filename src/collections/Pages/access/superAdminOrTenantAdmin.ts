@@ -15,9 +15,9 @@ export const superAdminOrTenantAdminAccess: Access = ({ req }) => {
   }
 
   const adminTenantAccessIDs = getUserTenantIDs(req.user, 'tenant-admin')
-  const requestedTenant = req?.data?.tenant
+  // const requestedTenant = req?.data?.tenant || req.user?.tenant
 
-  if (requestedTenant && adminTenantAccessIDs.includes(requestedTenant)) {
+  if (/*requestedTenant &&*/ adminTenantAccessIDs.length > 0) {
     return true
   }
 

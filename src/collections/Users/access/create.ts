@@ -19,9 +19,8 @@ export const createAccess: Access<User> = ({ req }) => {
   }
 
   const adminTenantAccessIDs = getUserTenantIDs(req.user, 'tenant-admin')
-
   const requestedTenants: Tenant['id'][] =
-    req.data?.tenants?.map((t: { tenant: Tenant['id'] }) => t.tenant) ?? []
+    Array.isArray(req.data) ? req.data.flatMap((item) => item.tenants?.map((t: { tenant: Tenant['id'] }) => t.tenant) ?? []) : [req.data?.tenants];
 
   const hasAccessToAllRequestedTenants = requestedTenants.every((tenantID) =>
     adminTenantAccessIDs.includes(tenantID),
