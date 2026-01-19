@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import { ensureUniqueSlug } from './hooks/ensureUniqueSlug'
 import { superAdminOrTenantAdminAccess } from '@/collections/Pages/access/superAdminOrTenantAdmin'
+import { ensureUniqueBlockIdentifier } from './hooks/ensureUniqueBlockName'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -22,11 +23,35 @@ export const Pages: CollectionConfig = {
     {
       name: 'slug',
       type: 'text',
-      defaultValue: 'home',
+      defaultValue: '',
       hooks: {
         beforeValidate: [ensureUniqueSlug],
       },
       index: true,
+    },
+    {
+      name: 'contents',
+      type: 'blocks',
+      blocks: [
+        {
+          slug: 'blocksList',
+          fields: [
+            {
+              name: 'identifier',
+              type: 'text',
+              defaultValue: '',
+              hooks: {
+                beforeValidate: [ensureUniqueBlockIdentifier],
+              },
+              index: true,
+            },
+            {
+              name: 'content',
+              type: 'text',
+            },
+          ],
+        },
+      ],
     },
   ],
 }
