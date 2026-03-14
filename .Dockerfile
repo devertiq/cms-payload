@@ -1,24 +1,31 @@
-FROM node:18.8-alpine as base
+FROM node:20-alpine AS base
 
-FROM base as builder
+RUN npm install -g pnpm@9
+
+FROM base AS builder
 
 WORKDIR /home/node/app
-COPY package*.json ./
+COPY package.json pnpm-lock.yaml ./
+
+RUN pnpm install --frozen-lockfile
 
 COPY . .
-RUN yarn install
-RUN yarn build
+RUN pnpm build
 
-FROM base as runtime
+FROM base AS runtime
 
 ENV NODE_ENV=production
 
 WORKDIR /home/node/app
-COPY package*.json  ./
-COPY yarn.lock ./
+COPY package.json pnpm-lock.yaml ./
 
-RUN yarn install --production
+RUN pnpm install --frozen-lockfile --prod
+
+COPY --from=builder /home/node/app/.next ./.next
+COPY --from=builder /home/node/app/public ./public
+COPY --from=builder /home/node/app/next.config.js ./next.config.js
+COPY --from=builder /home/node/app/redirects.js ./redirects.js
 
 EXPOSE 3000
 
-CMD ["node", "dist/server.js"]
+CMD ["pnpm", "start"]
