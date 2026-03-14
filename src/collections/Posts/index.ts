@@ -14,7 +14,6 @@ import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Banner } from '../../blocks/Banner/config'
 import { Code } from '../../blocks/Code/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
-import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { populateAuthors } from './hooks/populateAuthors'
 import { revalidatePost } from './hooks/revalidatePost'
 
@@ -26,7 +25,6 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
 import { slugField } from '@/fields/slug'
-import { getServerSideURL } from '@/utilities/getURL'
 
 export const Posts: CollectionConfig<'posts'> = {
   slug: 'posts',
@@ -52,22 +50,13 @@ export const Posts: CollectionConfig<'posts'> = {
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
       url: ({ data }) => {
-        const path = generatePreviewPath({
-          slug: typeof data?.slug === 'string' ? data.slug : '',
-          collection: 'posts',
-        })
-        const frontendURL = process.env.FRONTEND_URL ?? getServerSideURL()
-        return `${frontendURL}${path}`
+        const frontendURL = process.env.FRONTEND_URL ?? 'https://www.lovebalanceandbloom.org'
+        return `${frontendURL}/preview/posts/${data.id}`
       },
     },
     preview: (data) => {
-      const path = generatePreviewPath({
-        slug: typeof data?.slug === 'string' ? data.slug : '',
-        collection: 'posts',
-      })
-
-      const frontendURL = process.env.FRONTEND_URL ?? getServerSideURL();
-      return `${frontendURL}${path}`
+      const frontendURL = process.env.FRONTEND_URL ?? 'https://www.lovebalanceandbloom.org'
+      return `${frontendURL}/blog/${data?.slug}`
     },
     useAsTitle: 'title',
   },
