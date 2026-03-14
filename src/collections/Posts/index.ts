@@ -56,8 +56,8 @@ export const Posts: CollectionConfig<'posts'> = {
           slug: typeof data?.slug === 'string' ? data.slug : '',
           collection: 'posts',
         })
-
-        return `${getServerSideURL()}${path}`
+        const frontendURL = process.env.FRONTEND_URL ?? getServerSideURL()
+        return `${frontendURL}${path}`
       },
     },
     preview: (data) => {
@@ -66,7 +66,8 @@ export const Posts: CollectionConfig<'posts'> = {
         collection: 'posts',
       })
 
-      return `${getServerSideURL()}${path}`
+      const frontendURL = process.env.FRONTEND_URL ?? getServerSideURL();
+      return `${frontendURL}${path}`
     },
     useAsTitle: 'title',
   },

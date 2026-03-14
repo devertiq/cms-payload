@@ -67,7 +67,7 @@ export default buildConfig({
     },
   }),
   collections: [Pages, Posts, Media, Categories, Users, Comments, Tenants],
-  cors: [getServerSideURL()].filter(Boolean),
+  cors: [getServerSideURL(), process.env.FRONTEND_URL ?? 'https://www.lovebalanceandbloom.org'].filter(Boolean),
   globals: [Header, Footer],
   plugins: [
     ...plugins,
